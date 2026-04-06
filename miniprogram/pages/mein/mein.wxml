@@ -17,7 +17,6 @@
       <view wx-if="{{!signed && !signInLoading && userInfo.openid}}" class="signIn text-yellow text-xl" bindtap="signIn">签到+1次下载＞</view>
       <view wx-if="{{signInLoading && !signed}}" class="signIn">签到中...</view>
   </view>
-  <image src="./images/wave.gif" mode="scaleToFill" class="gif-wave"></image>
 </view>
 
 <view class="padding flex text-center text-grey bg-white shadow-warp">

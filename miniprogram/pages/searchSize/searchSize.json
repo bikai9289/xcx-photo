@@ -1,5 +1,5 @@
 {
-	"navigationBarTitleText": "免冠照/证件照尺寸",
+	"navigationBarTitleText": "证件照尺寸",
 	"enablePullDownRefresh": true ,
 	"onReachBottomDistance":50,
   "usingComponents": {

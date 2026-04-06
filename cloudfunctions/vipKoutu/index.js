@@ -4,7 +4,9 @@ const https = require('https')
 const http = require('http')
 const axios = require('axios')
 
-cloud.init()
+cloud.init({
+	env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 // 云函数入口函数
 exports.main = async (event, context) => {

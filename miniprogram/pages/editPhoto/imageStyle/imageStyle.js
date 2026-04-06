@@ -74,7 +74,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		wx.setNavigationBarTitle({ title: '免冠照/证件照换装' })
+		wx.setNavigationBarTitle({ title: '证件照换装' })
 		this.getData()
 
 		// 在页面onLoad回调事件中创建激励视频广告实例

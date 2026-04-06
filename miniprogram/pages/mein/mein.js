@@ -14,7 +14,7 @@ Page({
 		signInLoading: false,
 		videoLoaded: false,
 		canIUseGetUserProfile: true,
-		envVersion: wx.getAccountInfoSync().miniProgram.envVersion || 'release'
+		envVersion: 'release'
 	},
 
 	// 下发赞赏二维码
@@ -202,6 +202,18 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		// 安全获取环境版本信息
+		try {
+			const accountInfo = wx.getAccountInfoSync()
+			if (accountInfo && accountInfo.miniProgram) {
+				this.setData({
+					envVersion: accountInfo.miniProgram.envVersion || 'release'
+				})
+			}
+		} catch (error) {
+			console.log('获取环境版本失败', error)
+		}
+
 		if (wx.getUserProfile) {
 			this.setData({
 				canIUseGetUserProfile: true
@@ -254,6 +266,11 @@ Page({
 		if (!openid) return
 		const db = wx.cloud.database()
 		db.collection('user').where({ openid }).get().then(res => {
+			if (!res.data || res.data.length === 0) {
+				console.log('用户数据不存在')
+				return
+			}
+			
 			this.setData({
 				userInfo: res.data[0],
 				signed: res.data[0].signInDate.trim() === new Date().toDateString().trim()

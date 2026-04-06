@@ -5,7 +5,9 @@ const https = require('https')
 
 // 上传相馆图片使用
 
-cloud.init()
+cloud.init({
+	env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 // 云函数入口函数
 exports.main = async (event, context) => {

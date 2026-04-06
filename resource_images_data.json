@@ -1,0 +1,64 @@
+[
+  {
+    "type": "hairs",
+    "tag": "nan",
+    "url": "cloud://你的云存储地址/resources/hairs/man_hair_1.png",
+    "name": "男士短发1",
+    "_comment": "请将 url 替换为实际上传到云存储后的 fileID"
+  },
+  {
+    "type": "hairs",
+    "tag": "nan",
+    "url": "cloud://你的云存储地址/resources/hairs/man_hair_2.png",
+    "name": "男士短发2"
+  },
+  {
+    "type": "hairs",
+    "tag": "nv",
+    "url": "cloud://你的云存储地址/resources/hairs/woman_hair_1.png",
+    "name": "女士长发1"
+  },
+  {
+    "type": "hairs",
+    "tag": "nv",
+    "url": "cloud://你的云存储地址/resources/hairs/woman_hair_2.png",
+    "name": "女士长发2"
+  },
+  {
+    "type": "clothes",
+    "tag": "nan",
+    "url": "cloud://你的云存储地址/resources/clothes/man_suit_1.png",
+    "name": "男士西装1"
+  },
+  {
+    "type": "clothes",
+    "tag": "nan",
+    "url": "cloud://你的云存储地址/resources/clothes/man_suit_2.png",
+    "name": "男士西装2"
+  },
+  {
+    "type": "clothes",
+    "tag": "nv",
+    "url": "cloud://你的云存储地址/resources/clothes/woman_suit_1.png",
+    "name": "女士职业装1"
+  },
+  {
+    "type": "clothes",
+    "tag": "nv",
+    "url": "cloud://你的云存储地址/resources/clothes/woman_suit_2.png",
+    "name": "女士职业装2"
+  },
+  {
+    "type": "clothes",
+    "tag": "other",
+    "url": "cloud://你的云存储地址/resources/clothes/casual_1.png",
+    "name": "休闲装1"
+  },
+  {
+    "type": "clothes",
+    "tag": "other",
+    "url": "cloud://你的云存储地址/resources/clothes/casual_2.png",
+    "name": "休闲装2"
+  }
+]
+

@@ -2,3 +2,4 @@ node_modules
 **/pachong
 **/uploadTest
 **/example
+*.md

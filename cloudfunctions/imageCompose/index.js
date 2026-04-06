@@ -5,7 +5,9 @@ const https = require('https')
 const dayjs = require('dayjs')
 const images = require('images')
 
-cloud.init()
+cloud.init({
+	env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 const db = cloud.database()
 

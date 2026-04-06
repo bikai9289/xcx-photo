@@ -14,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({ title: '免冠照/证件照' })
+    wx.setNavigationBarTitle({ title: '证件照' })
     // 来自邀请，签到时使用
     if (options.shareOpenid) {
       wx.setStorage({

@@ -40,7 +40,7 @@ Page({
     // this.requestdata();
     const {index} = options;
     this.clickTab({ target: { dataset: { current: index || '1' } } })
-		wx.setNavigationBarTitle({ title: '免冠照/证件照尺寸' })
+		wx.setNavigationBarTitle({ title: '证件照尺寸' })
 	},
   // 跳转到搜索页面
 	inputPush(){
@@ -48,6 +48,7 @@ Page({
 	},
 	//获取数据
 	requestdata (){
+		console.log('开始请求数据，category:', this.data.category, 'page:', this.data.page)
 		wx.showLoading({
 			title: '加载中...',
 		})
@@ -59,14 +60,26 @@ Page({
 		.limit(MAX_LIMIT)
 		.get({
       success: res => {
-			 console.log(res)
+			 console.log('请求成功:', res)
 			 let arrNum = res.data.length
-			 console.log(arrNum);
+			 console.log('返回数据条数:', arrNum);
 			 wx.hideLoading()
 			 this.setData({
           photoSizeList:this.data.photoSizeList.concat(res.data),
         });
         hideLoadView = arrNum !== 20
+      },
+      fail: err => {
+        console.error('请求失败:', err)
+        wx.hideLoading()
+        wx.showToast({
+          title: '加载失败: ' + (err.errMsg || '请检查网络'),
+          icon: 'none',
+          duration: 3000
+        })
+      },
+      complete: () => {
+        console.log('请求完成')
       }
     })
 	},

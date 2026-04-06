@@ -6,14 +6,29 @@ const dayjs = require('dayjs')
 const AipBodyAnalysisClient = require("baidu-aip-sdk").bodyanalysis;
 
 // 设置APPID/AK/SK
-const APP_ID = process.env.APP_ID;
-const API_KEY = process.env.API_KEY;
-const SECRET_KEY = process.env.SECRET_KEY;
+// 优先使用环境变量，如果没有则使用配置文件
+let APP_ID = process.env.APP_ID;
+let API_KEY = process.env.API_KEY;
+let SECRET_KEY = process.env.SECRET_KEY;
+
+// 如果环境变量未配置，则从配置文件读取
+if (!APP_ID || !API_KEY || !SECRET_KEY) {
+  try {
+    const config = require('./config.js');
+    APP_ID = config.APP_ID;
+    API_KEY = config.API_KEY;
+    SECRET_KEY = config.SECRET_KEY;
+  } catch (error) {
+    console.error('配置文件读取失败，请检查 config.js 文件是否存在');
+  }
+}
 
 // 新建一个对象，建议只保存一个对象调用服务接口
 const client = new AipBodyAnalysisClient(APP_ID, API_KEY, SECRET_KEY);
 
-cloud.init()
+cloud.init({
+	env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 const db = cloud.database()
 

@@ -17,12 +17,7 @@
         version="release"
         class="swiper-item">
         <view class="img-p">
-          <image mode="widthFix" src="./images/微信图片_20200712103220.jpg"></image>
-          <view class="msg text-orange light">
-            <text class="cu-btn radius bg-orange">一键P图</text>
-            <view></view>
-            <text class="sub-title">背景图片随意换</text>
-          </view>
+          <image mode="widthFix" src="./images/11.jpeg"></image>
         </view>
       </navigator>
     </swiper-item>
@@ -35,12 +30,7 @@
         version="release"
         class="swiper-item">
         <view class="img-p">
-          <image mode="widthFix" src="./images/3001677327372_.pic.jpg"></image>
-          <view class="msg text-blue light">
-            <view class="cu-btn radius bg-blue text-white">下载</view>
-            <view></view>
-            <view class="sub-title text-white">好看的风景、美女、手机壁纸、电脑壁纸</view>
-          </view>
+          <image mode="widthFix" src="./images/33.jpeg"></image>
         </view>
       </navigator>
     </swiper-item>

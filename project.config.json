@@ -42,11 +42,15 @@
     ],
     "lazyloadPlaceholderEnable": false,
     "useStaticServer": true,
-    "condition": true
+    "condition": true,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "swc": false,
+    "disableSWC": true
   },
-  "appid": "wxbe6c30a61a51b422",
+  "appid": "wx3424d888f78a9716",
   "projectname": "证件照微信小程序",
-  "libVersion": "2.14.1",
+  "libVersion": "2.30.2",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {
     "wxext14566970e7e9f62": "2.27.3"

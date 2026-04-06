@@ -386,10 +386,12 @@ Page({
         if (!openid) return
         const db = wx.cloud.database()
         db.collection('user').where({ openid }).get().then(res => {
-            this.setData({
-                count: res.data[0].count,
-                vipCount: res.data[0].vipCount
-            })
+            if (res.data && res.data.length > 0) {
+                this.setData({
+                    count: res.data[0].count,
+                    vipCount: res.data[0].vipCount
+                })
+            }
         })
     },
 

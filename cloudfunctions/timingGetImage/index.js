@@ -4,7 +4,9 @@ const cloud = require('wx-server-sdk')
 const imgApi = process.env.IMAGE_API
 const meinvImgApi = process.env.MEINV_IMAGE_API
 
-cloud.init()
+cloud.init({
+	env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 const db = cloud.database()
 // 共享给人像抠图小程序用
