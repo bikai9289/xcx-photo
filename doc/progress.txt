@@ -1,0 +1,223 @@
+你这个报错非常明确：当前代码在读数据库集合 resource-images，但你的云开发数据库里没有这个集合。
+
+截图左侧现在有：
+
+bgList
+clothes
+hairs
+imageCount
+photo_size
+...
+但没有：
+
+resource-images
+所以会报：
+
+database collection not exists: resource-images
+你现在有两种配置方式，推荐用 方式 A，最稳，也和当前代码完全一致。
+
+方式 A：创建 resource-images 集合，推荐
+这个项目现在的资源数据统一放在一个集合里，集合名必须是：
+
+resource-images
+注意：是 resource-images，中间是英文横杠，不是 resource_images，也不是 resourceImages。
+
+1. 创建集合
+在你截图这个页面：
+
+点左侧「集合名称」旁边的 +
+输入集合名：
+resource-images
+确认创建
+创建后左侧应该能看到：
+
+resource-images
+2. 设置数据库权限
+选中新建的 resource-images 集合。
+
+进入上方：
+
+数据权限
+开发阶段建议先选：
+
+所有用户可读，仅创建者可写
+如果调试时还是权限报错，可以临时改成：
+
+所有用户可读写
+等发布前再收紧权限。
+
+3. 准备图片资源
+你需要准备透明背景 PNG 图片，至少先准备几张测试：
+
+发型：
+男士发型 PNG
+女士发型 PNG
+
+服装：
+男士服装 PNG
+女士服装 PNG
+通用服装 PNG，可选
+建议云存储路径按这个结构放：
+
+resources/
+├── hairs/
+│   ├── man/
+│   └── woman/
+└── clothes/
+    ├── man/
+    ├── woman/
+    └── other/
+例如：
+
+resources/hairs/man/man_hair_1.png
+resources/hairs/woman/woman_hair_1.png
+resources/clothes/man/man_suit_1.png
+resources/clothes/woman/woman_suit_1.png
+resources/clothes/other/casual_1.png
+4. 上传图片到云存储
+切到顶部：
+
+存储
+然后按上面的目录创建文件夹并上传 PNG。
+
+上传后，每张图片右键或点详情，复制它的 FileID。
+
+FileID 类似这样：
+
+cloud://cloud1-0gjlge12c7ab5467.xxxx/resources/clothes/woman/woman_suit_1.png
+注意，不要复制临时链接，不要复制下载链接，最好复制 cloud:// 开头的 FileID。
+
+5. 添加数据库记录
+回到：
+
+数据库 -> resource-images -> 记录列表
+点：
+
+添加记录
+每条记录格式如下。
+
+女士发型：
+
+{
+  "type": "hairs",
+  "tag": "nv",
+  "url": "cloud://你的真实fileID/resources/hairs/woman/woman_hair_1.png",
+  "name": "女士发型1"
+}
+男士发型：
+
+{
+  "type": "hairs",
+  "tag": "nan",
+  "url": "cloud://你的真实fileID/resources/hairs/man/man_hair_1.png",
+  "name": "男士发型1"
+}
+女士服装：
+
+{
+  "type": "clothes",
+  "tag": "nv",
+  "url": "cloud://你的真实fileID/resources/clothes/woman/woman_suit_1.png",
+  "name": "女士职业装1"
+}
+男士服装：
+
+{
+  "type": "clothes",
+  "tag": "nan",
+  "url": "cloud://你的真实fileID/resources/clothes/man/man_suit_1.png",
+  "name": "男士西装1"
+}
+其他服装：
+
+{
+  "type": "clothes",
+  "tag": "other",
+  "url": "cloud://你的真实fileID/resources/clothes/other/casual_1.png",
+  "name": "通用服装1"
+}
+字段含义：
+
+type:
+hairs    发型
+clothes  服装
+
+tag:
+nv       女
+nan      男
+other    其他/通用
+
+url:
+云存储 FileID，必须是真实可访问的 cloud:// 地址
+
+name:
+显示/管理用名字
+6. 最少需要添加几条
+为了先跑通功能，最少建议添加：
+
+1 条 type=hairs, tag=nv
+1 条 type=hairs, tag=nan
+1 条 type=clothes, tag=nv
+1 条 type=clothes, tag=nan
+如果要让「其他」tab 也有内容，再加：
+
+1 条 type=clothes, tag=other
+7. 不要直接导入当前的 resource_images_data.json
+项目里的 resource_images_data.json 现在是模板，里面有这种占位地址：
+
+cloud://你的云存储地址/...
+这个不能直接用。
+
+你必须把里面所有 url 替换成你云存储里真实复制出来的 cloud://... FileID 后，才能导入。
+
+8. 部署/更新云函数
+你这次报错里云函数 getHairs 已经在运行，但它里面也会查询 resource-images。
+
+创建集合和数据后，通常不需要重新部署云函数就能读到。
+
+但如果你刚刚用了我上次改过的代码，还要在微信开发者工具里上传这两个云函数：
+
+cloudfunctions/getHairs
+cloudfunctions/getClothes
+操作方式：
+
+微信开发者工具左侧找到 cloudfunctions
+右键 getHairs
+选择「上传并部署：云端安装依赖」
+右键 getClothes
+选择「上传并部署：云端安装依赖」
+9. 重新编译测试
+完成后：
+
+清缓存：开发者工具顶部「清缓存」->「清除全部缓存」
+重新编译
+进入发型页
+看控制台是否还有：
+resource-images not exists
+如果没有这个错误，但页面提示暂无资源，说明集合有了，但数据格式或 url 不对。
+
+方式 B：继续使用你现有的 clothes / hairs 集合
+你截图里已经有 clothes 和 hairs 集合，但当前代码不读这两个集合，而是读统一集合 resource-images。
+
+如果你想继续用现有两个集合，就需要改代码和云函数，把：
+
+db.collection('resource-images')
+改成分别读：
+
+db.collection('hairs')
+db.collection('clothes')
+但这样还要确认你现有集合里的字段名是什么，比如是 url、src、imgUrl 还是别的。现在最省事的是方式 A：新建 resource-images，按统一格式填数据。
+
+你当前应该马上做的
+按这个顺序来：
+
+新建集合 resource-images
+设置权限为「所有用户可读，仅创建者可写」
+到「存储」上传至少 4 张 PNG
+复制每张图片的 cloud:// FileID
+在 resource-images 添加 4 条记录
+清缓存并重新编译
+再测试「头发」和「换装」
+配置成功后，控制台里这个错误就会消失：
+
+database collection not exists: resource-images

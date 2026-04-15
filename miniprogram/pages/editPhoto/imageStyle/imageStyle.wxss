@@ -45,3 +45,15 @@
 	right: 0;
 	bottom: 0;
 }
+
+.empty-view {
+	padding: 120rpx 32rpx;
+	text-align: center;
+	color: #888;
+	font-size: 28rpx;
+}
+
+.empty-view button {
+	margin-top: 32rpx;
+	background-color: #3E85EE;
+}

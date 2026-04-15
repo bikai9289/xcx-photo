@@ -24,8 +24,20 @@ exports.main = async (event, context) => {
 }
 
 async function getByTag (tag) {
-  return (await db.collection('resource-images').where({
+  const { data } = await db.collection('resource-images').where({
     type: 'hairs',
     tag,
-  }).get()).data
+  }).get()
+
+  return (Array.isArray(data) ? data : [])
+    .map((item, index) => {
+      const src = item.src || item.url || item.fileID || item.fileId || item.imgurl || ''
+      return {
+        ...item,
+        _id: item._id || `${tag}-${index}`,
+        src,
+        thumbSrc: item.thumbSrc || item.thumbnail || item.thumb || src,
+      }
+    })
+    .filter(item => item.src && !item.src.includes('你的云存储地址'))
 }

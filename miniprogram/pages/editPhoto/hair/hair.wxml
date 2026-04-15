@@ -9,17 +9,21 @@
 	</scroll-view>
 
 	<view class="scroll-height">
-		<view wx-if="{{TabCur === 0}}" class="img-list">
+		<view wx:if="{{TabCur === 0}}" class="img-list">
 			<view bindtap="selectImg" data-url="{{item.src}}" wx:for="{{imgList.nv}}" wx:key="_id" class="img-view">
-				<image mode="aspectFit" src="{{ item.src }}/thumbnail"></image>
+				<image mode="aspectFit" src="{{ item.thumbSrc }}"></image>
 				<text wx:if="{{videoLoaded}}" class="msg text-center text-blue">看视频后使用</text>
 			</view>
 		</view>
-		<view wx-if="{{TabCur === 1}}" class="img-list">
+		<view wx:if="{{TabCur === 1}}" class="img-list">
 			<view bindtap="selectImg" data-url="{{item.src}}" wx:for="{{imgList.nan}}" wx:key="_id" class="img-view">
-				<image mode="aspectFit" src="{{ item.src }}/thumbnail"></image>
+				<image mode="aspectFit" src="{{ item.thumbSrc }}"></image>
 				<text wx:if="{{videoLoaded}}" class="msg text-center text-blue">看视频后使用</text>
 			</view>
+		</view>
+		<view wx:if="{{emptyText && !loading}}" class="empty-view">
+			<view>{{emptyText}}</view>
+			<button wx:if="{{loadError}}" bindtap="getData" size="mini" type="primary">重新加载</button>
 		</view>
 	</view>
 </view>
